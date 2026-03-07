@@ -5,6 +5,21 @@
 <title>Para o Amor da Minha Vida ❤️</title>
 
 <style>
+    body{
+opacity:0;
+animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
 
 body{
     margin:0;
@@ -41,15 +56,22 @@ p{
 }
 
 button{
-    margin-top:20px;
-    padding:12px 25px;
-    border:none;
-    border-radius:10px;
-    background:#ff4d6d;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
+   button{
+margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:10px;
+background:#ff4d6d;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover{
+transform: translateY(-3px);
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
 }
 
 button:hover{
@@ -126,3 +148,4 @@ window.location.href = "fotos.html";
 
 </body>
 </html>
+
