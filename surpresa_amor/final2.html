@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Para Você ❤️</title>
+<title>Para você ❤️</title>
 
 <style>
 
@@ -17,24 +17,41 @@ font-family:Arial;
 overflow:hidden;
 }
 
+/* container central */
+
 .container{
 text-align:center;
 color:white;
-animation: aparecer 2s ease;
-max-width:700px;
+animation:entrada 2s ease;
+max-width:800px;
 }
 
-h1{
-font-size:50px;
-margin-bottom:20px;
+/* foto */
+
+img{
+width:65vmin;
+height:65vmin;
+object-fit:cover;
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,0.35);
+animation:zoom 6s ease infinite alternate;
+margin-bottom:25px;
 }
 
-p{
-font-size:26px;
-line-height:1.5;
+/* frase */
+
+.frase{
+font-size:32px;
+font-weight:bold;
+line-height:1.4;
+opacity:0;
+animation:aparecer 3s ease forwards;
+animation-delay:2s;
 }
 
-@keyframes aparecer{
+/* animações */
+
+@keyframes entrada{
 from{
 opacity:0;
 transform:scale(0.9);
@@ -45,13 +62,34 @@ transform:scale(1);
 }
 }
 
-/* corações subindo */
+@keyframes zoom{
+from{
+transform:scale(1);
+}
+to{
+transform:scale(1.05);
+}
+}
+
+@keyframes aparecer{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* corações */
 
 .coracao{
 position:absolute;
 bottom:-50px;
 font-size:30px;
-animation: subir 8s linear infinite;
+animation:subir 8s linear infinite;
+opacity:0.8;
 }
 
 @keyframes subir{
@@ -65,6 +103,25 @@ opacity:0;
 }
 }
 
+/* pétalas */
+
+.petala{
+position:absolute;
+top:-50px;
+font-size:20px;
+animation:cair 10s linear infinite;
+opacity:0.8;
+}
+
+@keyframes cair{
+0%{
+transform:translateY(0) rotate(0deg);
+}
+100%{
+transform:translateY(120vh) rotate(360deg);
+}
+}
+
 </style>
 </head>
 
@@ -72,39 +129,59 @@ opacity:0;
 
 <div class="container">
 
-<h1>❤️ Feliz Dia das Mulheres ❤️</h1>
+<img src="arte.jpg">
 
-<p>
-feliz dia das mulheres meu bem ❤️  
-você é especial pra mim  
+<div class="frase">
+feliz dia das mulheres meu bem ❤️ <br><br>
+você é especial pra mim <br>
 e eu quero mostrar isso todos os dias
-</p>
+</div>
 
 </div>
 
 <script>
 
-/* cria corações animados */
+/* corações subindo */
 
 function criarCoracao(){
 const coracao = document.createElement("div");
 
-coracao.classList.add("coracao");
-coracao.innerHTML = "❤️";
+coracao.className="coracao";
+coracao.innerHTML="❤️";
 
-coracao.style.left = Math.random() * 100 + "vw";
-coracao.style.fontSize = (20 + Math.random()*30) + "px";
+coracao.style.left=Math.random()*100+"vw";
+coracao.style.fontSize=(20+Math.random()*30)+"px";
 
 document.body.appendChild(coracao);
 
-setTimeout(()=>{
-coracao.remove();
-},8000);
+setTimeout(()=>{coracao.remove();},8000);
 }
 
 setInterval(criarCoracao,500);
 
+
+/* pétalas caindo */
+
+function criarPetala(){
+const petala=document.createElement("div");
+
+petala.className="petala";
+petala.innerHTML="🌸";
+
+petala.style.left=Math.random()*100+"vw";
+petala.style.fontSize=(15+Math.random()*20)+"px";
+
+document.body.appendChild(petala);
+
+setTimeout(()=>{petala.remove();},10000);
+}
+
+setInterval(criarPetala,800);
+
 </script>
 
 </body>
+</html>
+</body>
+
 </html>
