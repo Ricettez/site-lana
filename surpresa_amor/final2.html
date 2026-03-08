@@ -17,16 +17,35 @@ font-family:Arial;
 overflow:hidden;
 }
 
-/* container central */
+/* botão inicial */
 
-.container{
-text-align:center;
-color:white;
-animation:entrada 2s ease;
-max-width:800px;
+#botao{
+padding:18px 35px;
+font-size:26px;
+border:none;
+border-radius:15px;
+background:white;
+color:#ff4d6d;
+cursor:pointer;
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+transition:0.3s;
 }
 
-/* foto */
+#botao:hover{
+transform:scale(1.08);
+}
+
+/* container da surpresa */
+
+.container{
+position:absolute;
+text-align:center;
+display:none;
+flex-direction:column;
+align-items:center;
+}
+
+/* imagem */
 
 img{
 width:65vmin;
@@ -34,41 +53,26 @@ height:65vmin;
 object-fit:cover;
 border-radius:20px;
 box-shadow:0 20px 40px rgba(0,0,0,0.35);
-animation:zoom 6s ease infinite alternate;
 margin-bottom:25px;
+animation:zoom 6s ease infinite alternate;
 }
 
 /* frase */
 
 .frase{
 font-size:32px;
+color:white;
 font-weight:bold;
+max-width:700px;
 line-height:1.4;
-opacity:0;
-animation:aparecer 3s ease forwards;
-animation-delay:2s;
+animation:aparecer 2s ease;
 }
 
 /* animações */
 
-@keyframes entrada{
-from{
-opacity:0;
-transform:scale(0.9);
-}
-to{
-opacity:1;
-transform:scale(1);
-}
-}
-
 @keyframes zoom{
-from{
-transform:scale(1);
-}
-to{
-transform:scale(1.05);
-}
+from{transform:scale(1);}
+to{transform:scale(1.05);}
 }
 
 @keyframes aparecer{
@@ -86,39 +90,19 @@ transform:translateY(0);
 
 .coracao{
 position:absolute;
-bottom:-50px;
 font-size:30px;
-animation:subir 8s linear infinite;
-opacity:0.8;
+pointer-events:none;
+animation:voar 3s ease-out forwards;
 }
 
-@keyframes subir{
+@keyframes voar{
 0%{
-transform:translateY(0);
+transform:translate(0,0) scale(1);
 opacity:1;
 }
 100%{
-transform:translateY(-120vh);
+transform:translate(var(--x),var(--y)) scale(0.3);
 opacity:0;
-}
-}
-
-/* pétalas */
-
-.petala{
-position:absolute;
-top:-50px;
-font-size:20px;
-animation:cair 10s linear infinite;
-opacity:0.8;
-}
-
-@keyframes cair{
-0%{
-transform:translateY(0) rotate(0deg);
-}
-100%{
-transform:translateY(120vh) rotate(360deg);
 }
 }
 
@@ -127,9 +111,13 @@ transform:translateY(120vh) rotate(360deg);
 
 <body>
 
-<div class="container">
+<button id="botao" onclick="explodir()">
+clique aqui ❤️
+</button>
 
-<img src="arte2.jpg">
+<div class="container" id="conteudo">
+
+<img src="arte.jpg">
 
 <div class="frase">
 feliz dia das mulheres meu bem ❤️ <br><br>
@@ -141,48 +129,43 @@ e eu quero mostrar isso todos os dias
 
 <script>
 
-/* corações subindo */
+function explodir(){
 
-function criarCoracao(){
-const coracao = document.createElement("div");
+document.getElementById("botao").style.display="none";
+
+for(let i=0;i<120;i++){
+
+const coracao=document.createElement("div");
 
 coracao.className="coracao";
 coracao.innerHTML="❤️";
 
-coracao.style.left=Math.random()*100+"vw";
-coracao.style.fontSize=(20+Math.random()*30)+"px";
+coracao.style.left="50vw";
+coracao.style.top="50vh";
+
+const x=(Math.random()*800-400)+"px";
+const y=(Math.random()*800-400)+"px";
+
+coracao.style.setProperty("--x",x);
+coracao.style.setProperty("--y",y);
+
+coracao.style.fontSize=(20+Math.random()*40)+"px";
 
 document.body.appendChild(coracao);
 
-setTimeout(()=>{coracao.remove();},8000);
+setTimeout(()=>{
+coracao.remove();
+},3000);
+
 }
 
-setInterval(criarCoracao,500);
+setTimeout(()=>{
+document.getElementById("conteudo").style.display="flex";
+},1200);
 
-
-/* pétalas caindo */
-
-function criarPetala(){
-const petala=document.createElement("div");
-
-petala.className="petala";
-petala.innerHTML="🌸";
-
-petala.style.left=Math.random()*100+"vw";
-petala.style.fontSize=(15+Math.random()*20)+"px";
-
-document.body.appendChild(petala);
-
-setTimeout(()=>{petala.remove();},10000);
 }
-
-setInterval(criarPetala,800);
 
 </script>
 
 </body>
 </html>
-</body>
-
-</html>
-
